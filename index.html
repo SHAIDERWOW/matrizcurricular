@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Grade Curricular - UFR</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body class="dark">
+    <div id="top-buttons">
+      <button id="btn-back-to-courses" class="hidden">Trocar de Curso</button>
+      <button id="btn-popup">Requisitos de Conclusão</button>
+      <button id="btn-compact">Expandir Visualização</button>
+      <button id="btn-export">Exportar Grade</button>
+    </div>
+
+    <div id="popup-overlay" class="hidden"></div>
+
+    <div id="requirements-popup" class="popup hidden">
+      <h2>Requisitos de Conclusão</h2>
+      <div id="popup-content"></div>
+      <button class="close-popup">Fechar</button>
+    </div>
+    
+    <div id="export-popup" class="popup hidden">
+        <h2>Exportar Grade Curricular</h2>
+        <p>Selecione o que você deseja exportar:</p>
+        <div class="export-options">
+            <button data-export-type="pending">Matérias Pendentes</button>
+            <button data-export-type="completed">Matérias Concluídas</button>
+            <button data-export-type="all">Grade Completa</button>
+        </div>
+        <button class="close-popup">Cancelar</button>
+    </div>
+
+    <div id="course-selector">
+      <button data-course="engenharia-mecanica">Engenharia Mecânica</button>
+      <button data-course="curso-2">Curso 2 (Exemplo)</button>
+    </div>
+
+    <header>
+      <h1>Grade Curricular - UFR</h1>
+      <button id="dark-mode-toggle">Modo Claro</button>
+    </header>
+
+    <main>
+      <div id="curricular-container" class="hidden"></div>
+    </main>
+    
+    <script src="script.js"></script>
+  </body>
+</html>

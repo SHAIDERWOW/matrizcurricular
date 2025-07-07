@@ -1,0 +1,548 @@
+{
+  "grade_curricular": {
+    "1º Período": [
+      {
+        "nome": "CÁLCULO DIFERENCIAL E INTEGRAL I",
+        "apelido": "CÁLCULO I",
+        "componente": "DISC.3291",
+        "carga_horaria": "64h"
+      },
+      {
+        "nome": "DESENHO MECÂNICO I",
+        "apelido": "DESENHO I",
+        "componente": "DISC.3876",
+        "carga_horaria": "64h"
+      },
+      {
+        "nome": "FÍSICA I",
+        "apelido": "",
+        "componente": "DISC.1307",
+        "carga_horaria": "64h"
+      },
+      {
+        "nome": "MATRIZES E VETORES",
+        "apelido": "MATRIZES E VET.",
+        "componente": "DISC.2374",
+        "carga_horaria": "64h"
+      },
+      {
+        "nome": "PRÁTICAS EM ENGENHARIA MECÂNICA",
+        "apelido": "PRÁTICAS EM E.M.",
+        "componente": "DISC.3877",
+        "carga_horaria": "32h"
+      },
+      {
+        "nome": "QUÍMICA GERAL E EXPERIMENTAL",
+        "apelido": "QUÍMICA",
+        "componente": "DISC.3878",
+        "carga_horaria": "64h"
+      }
+    ],
+    "2º Período": [
+      {
+        "nome": "CÁLCULO DIFERENCIAL E INTEGRAL II",
+        "apelido": "CÁLCULO II",
+        "componente": "DISC.3302",
+        "carga_horaria": "64h",
+        "pre_requisitos": ["CÁLCULO DIFERENCIAL E INTEGRAL I"]
+      },
+      {
+        "nome": "DESENHO MECÂNICO II",
+        "apelido": "DESENHO II",
+        "componente": "DISC.3880",
+        "carga_horaria": "32h",
+        "pre_requisitos": ["DESENHO MECÂNICO I"]
+      },
+      {
+        "nome": "ESTÁTICA",
+        "apelido": "",
+        "componente": "DISC.3306",
+        "carga_horaria": "64h",
+        "pre_requisitos": ["FÍSICA I", "MATRIZES E VETORES"]
+      },
+      {
+        "nome": "FÍSICA EXPERIMENTAL E METODOLOGIA DA PESQUISA",
+        "apelido": "FÍSICA EXPERIMENTAL",
+        "componente": "DISC.3881",
+        "carga_horaria": "64h"
+      },
+      {
+        "nome": "PROBABILIDADE E ESTATÍSTICA",
+        "apelido": "ESTATÍSTICA",
+        "componente": "DISC.1740",
+        "carga_horaria": "64h"
+      },
+      {
+        "nome": "PROGRAMAÇÃO PARA ENGENHARIA",
+        "apelido": "PROGRAMAÇÃO",
+        "componente": "DISC.3879",
+        "carga_horaria": "64h"
+      }
+    ],
+    "3º Período": [
+      {
+        "nome": "CÁLCULO DIFERENCIAL E INTEGRAL III",
+        "apelido": "CÁLCULO III",
+        "componente": "DISC.3882",
+        "carga_horaria": "64h",
+        "pre_requisitos": ["CÁLCULO DIFERENCIAL E INTEGRAL II"]
+      },
+      {
+        "nome": "DINÂMICA",
+        "apelido": "",
+        "componente": "DISC.3883",
+        "carga_horaria": "64h",
+        "pre_requisitos": ["ESTÁTICA", "CÁLCULO DIFERENCIAL E INTEGRAL II"]
+      },
+      {
+        "nome": "FÍSICA III",
+        "apelido": "",
+        "componente": "DISC.3305",
+        "carga_horaria": "64h",
+        "pre_requisitos": [
+          "FÍSICA I",
+          "FÍSICA EXPERIMENTAL E METODOLOGIA DA PESQUISA"
+        ]
+      },
+      {
+        "nome": "INTRODUÇÃO À ECONOMIA",
+        "apelido": "",
+        "componente": "DISC.3853",
+        "carga_horaria": "32h"
+      },
+      {
+        "nome": "METROLOGIA",
+        "apelido": "",
+        "componente": "DISC.3884",
+        "carga_horaria": "32h",
+        "pre_requisitos": ["PROBABILIDADE E ESTATÍSTICA", "DESENHO MECÂNICO II"]
+      },
+      {
+        "nome": "NOÇÕES DE GESTÃO EMPRESARIAL",
+        "apelido": "GESTÃO EMPRESARIAL",
+        "componente": "DISC.3605",
+        "carga_horaria": "32h"
+      }
+    ],
+    "4º Período": [
+      {
+        "nome": "CÁLCULO NUMÉRICO",
+        "apelido": "",
+        "componente": "DISC.1478",
+        "carga_horaria": "64h",
+        "pre_requisitos": [
+          "CÁLCULO DIFERENCIAL E INTEGRAL III",
+          "PROGRAMAÇÃO PARA ENGENHARIA"
+        ]
+      },
+      {
+        "nome": "CIÊNCIAS DOS MATERIAIS",
+        "apelido": "",
+        "componente": "DISC.3886",
+        "carga_horaria": "64h",
+        "pre_requisitos": ["QUÍMICA GERAL E EXPERIMENTAL"]
+      },
+      {
+        "nome": "ELETRÔNICA BÁSICA",
+        "apelido": "ELETRÔNICA",
+        "componente": "DISC.3887",
+        "carga_horaria": "32h",
+        "pre_requisitos": ["FÍSICA III"]
+      },
+      {
+        "nome": "ELETROTÉCNICA GERAL",
+        "apelido": "ELETROTÉCNICA",
+        "componente": "DISC.3885",
+        "carga_horaria": "64h",
+        "pre_requisitos": ["FÍSICA III"]
+      },
+      {
+        "nome": "MECÂNICA DOS SÓLIDOS",
+        "apelido": "MEC. SOL. I",
+        "componente": "DISC.3317",
+        "carga_horaria": "64h",
+        "pre_requisitos": ["CÁLCULO DIFERENCIAL E INTEGRAL II", "ESTÁTICA"]
+      },
+      {
+        "nome": "TERMODINÂMICA",
+        "apelido": "",
+        "componente": "DISC.3374",
+        "carga_horaria": "64h",
+        "pre_requisitos": [
+          "FÍSICA EXPERIMENTAL E METODOLOGIA DA PESQUISA",
+          "CÁLCULO DIFERENCIAL E INTEGRAL III"
+        ]
+      }
+    ],
+    "5º Período": [
+      {
+        "nome": "CINEMÁTICA E DINÂMICA DOS MECANISMOS",
+        "apelido": "CINEMÁTICA",
+        "componente": "DISC.3888",
+        "carga_horaria": "64h",
+        "pre_requisitos": ["DINÂMICA"]
+      },
+      {
+        "nome": "ENSAIOS MECÂNICOS DE MATERIAIS",
+        "apelido": "ENSAIOS MECÂNICOS",
+        "componente": "DISC.3889",
+        "carga_horaria": "64h",
+        "pre_requisitos": ["CIÊNCIAS DOS MATERIAIS", "MECÂNICA DOS SÓLIDOS"]
+      },
+      {
+        "nome": "MATERIAIS DE CONSTRUÇÃO MECÂNICA I",
+        "apelido": "MATERIAIS I",
+        "componente": "DISC.3890",
+        "carga_horaria": "64h",
+        "pre_requisitos": ["CIÊNCIAS DOS MATERIAIS"]
+      },
+      {
+        "nome": "MECÂNICA DOS FLUÍDOS I",
+        "apelido": "MEC. FLU. I",
+        "componente": "DISC.3891",
+        "carga_horaria": "64h",
+        "pre_requisitos": ["TERMODINÂMICA", "DINÂMICA"]
+      },
+      {
+        "nome": "MECÂNICA DOS SÓLIDOS APLICADA",
+        "apelido": "MEC. SOL. II",
+        "componente": "DISC.3892",
+        "carga_horaria": "64h",
+        "pre_requisitos": ["MECÂNICA DOS SÓLIDOS"]
+      },
+      {
+        "nome": "USINAGEM",
+        "apelido": "",
+        "componente": "DISC.3893",
+        "carga_horaria": "64h",
+        "pre_requisitos": ["METROLOGIA"]
+      }
+    ],
+    "6º Período": [
+      {
+        "nome": "AUTOMAÇÃO INDUSTRIAL",
+        "apelido": "AUTOMAÇÃO",
+        "componente": "DISC.3894",
+        "carga_horaria": "64h",
+        "pre_requisitos": ["ELETRÔNICA BÁSICA", "ELETROTÉCNICA GERAL"]
+      },
+      {
+        "nome": "ELEMENTOS DE MÁQUINAS I",
+        "apelido": "ELEMENTOS I",
+        "componente": "DISC.3895",
+        "carga_horaria": "64h",
+        "pre_requisitos": [
+          "MECÂNICA DOS SÓLIDOS APLICADA",
+          "DESENHO MECÂNICO II"
+        ]
+      },
+      {
+        "nome": "ENGENHARIA DE SEGURANÇA DO TRABALHO",
+        "apelido": "SEGURANÇA DO TRABALHO",
+        "componente": "DISC.3377",
+        "carga_horaria": "32h",
+        "pre_requisitos": ["PRÁTICAS EM ENGENHARIA MECÂNICA", "USINAGEM"]
+      },
+      {
+        "nome": "MATERIAIS DE CONSTRUÇÃO MECÂNICA II",
+        "apelido": "MATERIAIS II",
+        "componente": "DISC.3896",
+        "carga_horaria": "64h",
+        "pre_requisitos": ["MATERIAIS DE CONSTRUÇÃO MECÂNICA I"]
+      },
+      {
+        "nome": "MECÂNICA DOS FLUÍDOS II",
+        "apelido": "MEC. FLU. II",
+        "componente": "DISC.3897",
+        "carga_horaria": "64h",
+        "pre_requisitos": ["MECÂNICA DOS FLUÍDOS I"]
+      },
+      {
+        "nome": "TRANSFERÊNCIA DE CALOR I",
+        "apelido": "TRANS. CAL. I",
+        "componente": "DISC.3898",
+        "carga_horaria": "64h",
+        "pre_requisitos": ["CÁLCULO NUMÉRICO", "MECÂNICA DOS FLUÍDOS I"]
+      }
+    ],
+    "7º Período": [
+      {
+        "nome": "COMANDOS HIDRÁULICOS E PNEUMÁTICOS",
+        "apelido": "C.H.P.",
+        "componente": "DISC.3900",
+        "carga_horaria": "64h",
+        "pre_requisitos": ["MECÂNICA DOS FLUÍDOS II", "AUTOMAÇÃO INDUSTRIAL"]
+      },
+      {
+        "nome": "ELEMENTOS DE MÁQUINAS II",
+        "apelido": "ELEMENTOS II",
+        "componente": "DISC.3901",
+        "carga_horaria": "64h",
+        "pre_requisitos": ["ELEMENTOS DE MÁQUINAS I"]
+      },
+      {
+        "nome": "FUNDIÇÃO",
+        "apelido": "",
+        "componente": "DISC.3902",
+        "carga_horaria": "32h",
+        "pre_requisitos": ["MATERIAIS DE CONSTRUÇÃO MECÂNICA II"]
+      },
+      {
+        "nome": "MÁQUINAS DE FLUXO",
+        "apelido": "",
+        "componente": "DISC.3903",
+        "carga_horaria": "64h",
+        "pre_requisitos": [
+          "CÁLCULO NUMÉRICO",
+          "ELEMENTOS DE MÁQUINAS I",
+          "MECÂNICA DOS FLUÍDOS II"
+        ]
+      },
+      {
+        "nome": "SOLDAGEM",
+        "apelido": "",
+        "componente": "DISC.3904",
+        "carga_horaria": "32h",
+        "pre_requisitos": ["MATERIAIS DE CONSTRUÇÃO MECÂNICA II"]
+      },
+      {
+        "nome": "TRANSFERÊNCIA DE CALOR II",
+        "apelido": "TRANS. CAL. II",
+        "componente": "DISC.3905",
+        "carga_horaria": "64h",
+        "pre_requisitos": [
+          "TRANSFERÊNCIA DE CALOR I",
+          "MECÂNICA DOS FLUÍDOS II"
+        ]
+      },
+      {
+        "nome": "VIBRAÇÕES MECÂNICAS",
+        "apelido": "VIBRAÇÕES",
+        "componente": "DISC.3899",
+        "carga_horaria": "64h",
+        "pre_requisitos": [
+          "CÁLCULO DIFERENCIAL E INTEGRAL III",
+          "CINEMÁTICA E DINÂMICA DOS MECANISMOS"
+        ]
+      }
+    ],
+    "8º Período": [
+      {
+        "nome": "CONFORMAÇÃO MECÂNICA",
+        "apelido": "CONFORMAÇÃO",
+        "componente": "DISC.3906",
+        "carga_horaria": "64h",
+        "pre_requisitos": [
+          "ENSAIOS MECÂNICOS DE MATERIAIS",
+          "MATERIAIS DE CONSTRUÇÃO MECÂNICA II"
+        ]
+      },
+      {
+        "nome": "CONTROLE DE SISTEMAS LINEARES",
+        "apelido": "CONTROLE",
+        "componente": "DISC.3910",
+        "carga_horaria": "32h",
+        "pre_requisitos": ["VIBRAÇÕES MECÂNICAS"]
+      },
+      {
+        "nome": "GESTÃO DA QUALIDADE E PRODUTIVIDADE",
+        "apelido": "GESTÃO DE QUALIDADE",
+        "componente": "DISC.1717",
+        "carga_horaria": "64h",
+        "pre_requisitos": ["METROLOGIA", "USINAGEM"]
+      },
+      {
+        "nome": "MÁQUINAS TÉRMICAS",
+        "apelido": "",
+        "componente": "DISC.3907",
+        "carga_horaria": "64h",
+        "pre_requisitos": ["CÁLCULO NUMÉRICO", "TRANSFERÊNCIA DE CALOR II"]
+      },
+      {
+        "nome": "PROJETOS DE MÁQUINAS",
+        "apelido": "",
+        "componente": "DISC.3908",
+        "carga_horaria": "64h",
+        "pre_requisitos": [
+          "CINEMÁTICA E DINÂMICA DOS MECANISMOS",
+          "ELEMENTOS DE MÁQUINAS II"
+        ]
+      },
+      {
+        "nome": "REFRIGERAÇÃO E AR-CONDICIONADO",
+        "apelido": "REFRIGERAÇÃO",
+        "componente": "DISC.3909",
+        "carga_horaria": "64h",
+        "pre_requisitos": ["MÁQUINAS DE FLUXO", "TRANSFERÊNCIA DE CALOR II"]
+      }
+    ],
+    "9º Período": [
+      {
+        "nome": "EXTENSÃO UNIVERSITÁRIA I",
+        "apelido": "EXTENSÃO I",
+        "componente": "DISC.3912",
+        "carga_horaria": "180h",
+        "pre_requisitos": []
+      },
+      {
+        "nome": "MANUTENÇÃO INDUSTRIAL",
+        "apelido": "",
+        "componente": "DISC.3911",
+        "carga_horaria": "32h",
+        "pre_requisitos": ["VIBRAÇÕES MECÂNICAS", "ELEMENTOS DE MÁQUINAS II"]
+      },
+      {
+        "nome": "SISTEMAS DE ENERGIAS RENOVÁVEIS",
+        "apelido": "ENERGIAS RENOVÁVEIS",
+        "componente": "DISC.3913",
+        "carga_horaria": "32h",
+        "pre_requisitos": ["QUÍMICA GERAL E EXPERIMENTAL"]
+      },
+      {
+        "nome": "OPTATIVA I",
+        "apelido": "",
+        "componente": "DISC.x",
+        "carga_horaria": "64h",
+        "pre_requisitos": []
+      },
+      {
+        "nome": "OPTATIVA II",
+        "apelido": "",
+        "componente": "DISC.x",
+        "carga_horaria": "64h",
+        "pre_requisitos": []
+      }
+    ],
+    "10º Período": [
+      {
+        "nome": "EXTENSÃO UNIVERSITÁRIA II",
+        "apelido": "EXTENSÃO II",
+        "componente": "DISC.3914",
+        "carga_horaria": "180h",
+        "pre_requisitos": []
+      },
+      {
+        "nome": "TRABALHO DE CONCLUSÃO DE CURSO",
+        "apelido": "T.C.C.",
+        "componente": "DISC.3387",
+        "carga_horaria": "32h",
+        "pre_requisitos": []
+      }
+    ],
+    "Optativas": [
+      {
+        "nome": "ANÁLISE ESTRUTURAL",
+        "apelido": "",
+        "componente": "DISC.3915",
+        "carga_horaria": "64h"
+      },
+      {
+        "nome": "COMBUSTÃO E GERADORES DE VAPOR",
+        "apelido": "",
+        "componente": "DISC.3916",
+        "carga_horaria": "64h"
+      },
+      {
+        "nome": "EDUCAÇÃO DAS RELAÇÕES ÉTNICO-RACIAIS",
+        "apelido": "",
+        "componente": "DISC.3050",
+        "carga_horaria": "64h"
+      },
+      {
+        "nome": "EDUCAÇÃO EM DIREITOS HUMANOS",
+        "apelido": "",
+        "componente": "DISC.3049",
+        "carga_horaria": "64h"
+      },
+      {
+        "nome": "EMPREENDEDORISMO E REDE DE COOPERAÇÃO",
+        "apelido": "",
+        "componente": "DISC.3386",
+        "carga_horaria": "64h"
+      },
+      {
+        "nome": "INOVAÇÃO, CRIATIVIDADE E ATITUDE EMPREENDEDORA",
+        "apelido": "",
+        "componente": "DISC.3504",
+        "carga_horaria": "64h"
+      },
+      {
+        "nome": "INSTRUMENTAÇÃO INDUSTRIAL",
+        "apelido": "",
+        "componente": "DISC.3917",
+        "carga_horaria": "64h"
+      },
+      {
+        "nome": "LÍNGUA BRASILEIRA DE SINAIS - LIBRAS",
+        "apelido": "",
+        "componente": "DISC.2479",
+        "carga_horaria": "64h"
+      },
+      {
+        "nome": "LÍNGUA INGLESA",
+        "apelido": "",
+        "componente": "DISC.3197",
+        "carga_horaria": "64h"
+      },
+      {
+        "nome": "LÍNGUA PORTUGUESA",
+        "apelido": "",
+        "componente": "DISC.1576",
+        "carga_horaria": "64h"
+      },
+      {
+        "nome": "MÁQUINAS DE ELEVAÇÃO E TRANSPORTE",
+        "apelido": "",
+        "componente": "DISC.3918",
+        "carga_horaria": "64h"
+      },
+      {
+        "nome": "PROGRAMAÇÃO COMPUTACIONAL APLICADA",
+        "apelido": "",
+        "componente": "DISC.3919",
+        "carga_horaria": "64h"
+      },
+      {
+        "nome": "SIMULAÇÃO COMPUTACIONAL APLICADA À ENGENHARIA",
+        "apelido": "",
+        "componente": "DISC.3920",
+        "carga_horaria": "64h"
+      },
+      {
+        "nome": "TÓPICOS DE SISTEMAS AUTOMOTIVOS",
+        "apelido": "",
+        "componente": "DISC.3921",
+        "carga_horaria": "64h"
+      },
+      {
+        "nome": "TRATAMENTOS TÉRMICOS E TERMOQUÍMICOS",
+        "apelido": "",
+        "componente": "DISC.3922",
+        "carga_horaria": "64h"
+      }
+    ]
+  },
+  "requisitos_conclusao": {
+    "Disciplinas Obrigatórias": {
+      "observacao": "Matérias essenciais para a formação em Engenharia Mecânica. Incluem aulas teóricas e práticas com conteúdo definido pelo projeto pedagógico do curso.",
+      "ch_prevista": "3240h"
+    },
+    "Disciplinas Optativas": {
+      "observacao": "Matérias não obrigatórias que permitem aprofundar conhecimentos em áreas específicas da Engenharia Mecânica, escolhidas pelo estudante.",
+      "ch_prevista": "128h"
+    },
+    "Prática como Componente Curricular": {
+      "observacao": "Atividades práticas obrigatórias que reforçam a aplicação dos conhecimentos teóricos em situações reais, como estágios e projetos.",
+      "ch_prevista": "168h"
+    },
+    "Disciplinas de TCC": {
+      "observacao": "Projeto final do curso onde o estudante aplica os conhecimentos adquiridos em um trabalho orientado, desenvolvido ao longo de 32h.",
+      "ch_prevista": "32h"
+    },
+    "Atividades Complementares": {
+      "observacao": "Atividades extracurriculares, como cursos, eventos acadêmicos e projetos de pesquisa, que ampliam a formação do estudante.",
+      "ch_prevista": "32h"
+    },
+    "total": "3600h"
+  }
+}
