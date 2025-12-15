@@ -3,26 +3,33 @@ document.addEventListener("DOMContentLoaded", function () {
     body = document.body,
     darkModeToggle = document.getElementById("dark-mode-toggle"),
     container = document.getElementById("curricular-container"),
-    courseSelector = document.getElementById("course-selector"),
     btnCompact = document.getElementById("btn-compact"),
     btnExport = document.getElementById("btn-export"),
     btnPopup = document.getElementById("btn-popup"),
-    btnBackToCourses = document.getElementById("btn-back-to-courses"),
+    btnReset = document.getElementById("btn-reset"),
+    btnPrintPdf = document.getElementById("btn-print-pdf"),
+    
+    // Popups e Overlay
     popupOverlay = document.getElementById("popup-overlay"),
     requirementsPopup = document.getElementById("requirements-popup"),
-    exportPopup = document.getElementById("export-popup");
+    exportPopup = document.getElementById("export-popup"),
+    resetPopup = document.getElementById("reset-popup"),
+    optativePopup = document.getElementById("optative-popup"),
+    prereqPopup = document.getElementById("prereq-popup"),
+    
+    // Botões dentro de popups
+    btnConfirmReset = document.getElementById("confirm-reset"),
+    btnForceComplete = document.getElementById("btn-force-complete");
 
   let gradeData = {};
   let completedCourses = new Set();
-  let currentCourse = "";
-
-  const courseFileMapping = {
-    "engenharia-mecanica": "dataEM.json",
-    "curso-2": "dataC2.json",
-  };
+  let pendingDisciplineNode = null; // Para guardar qual disciplina está tentando ser marcada no popup de pré-requisito
+  
+  // Curso fixo
+  const currentCourse = "engenharia-mecanica";
+  const jsonFileName = "dataEM.json";
 
   const saveState = () => {
-    if (!currentCourse) return;
     localStorage.setItem(`${currentCourse}_completed`, JSON.stringify(Array.from(completedCourses)));
     localStorage.setItem("darkMode", body.classList.contains("dark"));
   };
@@ -30,9 +37,14 @@ document.addEventListener("DOMContentLoaded", function () {
   const loadState = () => {
     const savedCourses = localStorage.getItem(`${currentCourse}_completed`);
     const savedDarkMode = localStorage.getItem("darkMode");
+    
     completedCourses = savedCourses ? new Set(JSON.parse(savedCourses)) : new Set();
-    if (savedDarkMode === null || savedDarkMode === "true") body.classList.add("dark");
-    else body.classList.remove("dark");
+    
+    if (savedDarkMode === null || savedDarkMode === "true") {
+        body.classList.add("dark");
+    } else {
+        body.classList.remove("dark");
+    }
     updateDarkModeButton();
   };
 
@@ -43,8 +55,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
   const hideAllPopups = () => {
     popupOverlay.classList.add('hidden');
-    requirementsPopup.classList.add('hidden');
-    exportPopup.classList.add('hidden');
+    document.querySelectorAll('.popup').forEach(p => p.classList.add('hidden'));
+    pendingDisciplineNode = null;
   }
 
   const updateDarkModeButton = () => {
@@ -62,15 +74,19 @@ document.addEventListener("DOMContentLoaded", function () {
 
   const renderCurricularMatrix = () => {
     container.innerHTML = "";
-    container.classList.add("compact");
-
-    const courseName = courseSelector.querySelector(`[data-course="${currentCourse}"]`).textContent;
-    document.querySelector("header h1").innerHTML = `<img src="https://cdn.glitch.global/ab1e181f-e611-442d-9125-65bc043647cf/club-penguin.gif?v=1743474666434" alt="Pinguim" class="header-gif"> Grade Curricular - ${courseName}`;
+    container.classList.add("compact"); // Começa compactado por padrão
 
     for (const periodo in gradeData.grade_curricular) {
       const column = document.createElement("div");
       column.className = "column";
-      column.innerHTML = `<h2>${periodo}</h2>`;
+      
+      // Cabeçalho da coluna com botão de marcar tudo
+      const header = document.createElement("div");
+      header.innerHTML = `<h2>${periodo} <button class="btn-check-all" title="Concluir/Desmarcar semestre">✓</button></h2>`;
+      // Adiciona evento ao botão de check do semestre
+      header.querySelector('.btn-check-all').addEventListener('click', () => markSemesterComplete(periodo));
+      
+      column.appendChild(header.firstElementChild); // Adiciona o h2
 
       gradeData.grade_curricular[periodo].forEach((disciplina) => {
         const block = document.createElement("div");
@@ -93,37 +109,73 @@ document.addEventListener("DOMContentLoaded", function () {
     updateCompactView();
   };
   
-  const loadCourseData = (courseId) => {
-    const fileName = courseFileMapping[courseId];
-    if (!fileName) return console.error(`Arquivo JSON para o curso "${courseId}" não encontrado.`);
-    
-    currentCourse = courseId;
-    fetch(fileName)
+  const loadCourseData = () => {
+    fetch(jsonFileName)
       .then(response => response.json())
       .then(data => {
         gradeData = data;
         loadState();
         renderCurricularMatrix();
-        courseSelector.classList.add("hidden");
-        container.classList.remove("hidden");
-        btnBackToCourses.classList.remove("hidden");
-        [btnCompact, btnExport, btnPopup].forEach(b => b.style.display = 'inline-block');
+        // Garante que os botões estejam visíveis
+        [btnCompact, btnExport, btnPopup, btnReset].forEach(b => b.style.display = 'inline-block');
       })
       .catch(error => console.error("Erro ao carregar o arquivo JSON:", error));
   };
   
-  const showCourseSelection = () => {
-      container.classList.add("hidden");
-      courseSelector.classList.remove("hidden");
-      btnBackToCourses.classList.add("hidden");
-      [btnCompact, btnExport, btnPopup].forEach(b => b.style.display = 'none');
-      document.querySelector("header h1").innerHTML = 'Grade Curricular - UFR';
-  }
+  // Função para marcar/desmarcar semestre inteiro
+  const markSemesterComplete = (periodo) => {
+      const disciplinas = gradeData.grade_curricular[periodo];
+      
+      // Verifica se TODAS as disciplinas desse período já estão marcadas
+      const allCompleted = disciplinas.every(d => completedCourses.has(d.nome));
+      
+      let hasChanges = false;
+      
+      if (allCompleted) {
+          // Se todas estão marcadas, DESMARCA todas
+          disciplinas.forEach(d => {
+              if (completedCourses.has(d.nome)) {
+                  completedCourses.delete(d.nome);
+                  hasChanges = true;
+              }
+          });
+      } else {
+          // Se alguma não estiver marcada, MARCA todas (que faltam)
+          disciplinas.forEach(d => {
+              // Simplificação: ignora verificações complexas de limite de optativas no "marcar tudo"
+              // para garantir usabilidade fluida. O usuário pode desmarcar manualmente se necessário.
+              if (!completedCourses.has(d.nome)) {
+                   completedCourses.add(d.nome);
+                   hasChanges = true;
+              }
+          });
+      }
+      
+      if(hasChanges) {
+          saveState();
+          // Atualiza visualmente apenas as disciplinas da coluna para não perder scroll/foco
+          const columns = container.querySelectorAll('.column');
+          columns.forEach(col => {
+              if (col.querySelector('h2').textContent.includes(periodo)) {
+                  const blocks = col.querySelectorAll('.disciplina');
+                  blocks.forEach(block => {
+                      const nome = block.dataset.nome;
+                      if (completedCourses.has(nome)) {
+                          block.classList.add('completed');
+                      } else {
+                          block.classList.remove('completed');
+                      }
+                  });
+              }
+          });
+      }
+  };
 
   const calculateProgress = () => {
     const progress = {};
     const requisitos = gradeData.requisitos_conclusao;
 
+    // Inicializa as categorias de progresso
     for (const req in requisitos) {
         if (req !== 'total') {
             progress[req] = {
@@ -134,16 +186,22 @@ document.addEventListener("DOMContentLoaded", function () {
     }
     
     const allDisciplines = Object.values(gradeData.grade_curricular).flat();
+    const optativasList = gradeData.grade_curricular["Optativas"] || [];
 
     completedCourses.forEach(courseName => {
         const disciplina = allDisciplines.find(d => d.nome === courseName);
         if(!disciplina) return;
         
-        let reqCategory = "Disciplinas Obrigatórias"; // Default
+        let reqCategory = "Disciplinas Obrigatórias";
+        
         if (disciplina.nome === "TRABALHO DE CONCLUSÃO DE CURSO") {
             reqCategory = "Disciplinas de TCC";
-        } else if (gradeData.grade_curricular["Optativas"]?.some(d => d.nome === courseName)) {
+        } 
+        else if (disciplina.nome === "OPTATIVA I" || disciplina.nome === "OPTATIVA II") {
             reqCategory = "Disciplinas Optativas";
+        }
+        else if (optativasList.some(d => d.nome === courseName)) {
+            return; 
         }
         
         if(progress[reqCategory]) {
@@ -173,7 +231,8 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     const maxRows = Math.max(...Array.from(periodMap.values()).map(p => p.length));
-    let csvContent = `\uFEFF${periodOrder.join(',')}\n`;
+    
+    let csvContent = `\uFEFF${periodOrder.join(';')}\n`;
 
     for (let i = 0; i < maxRows; i++) {
         const row = periodOrder.map(periodo => {
@@ -181,16 +240,27 @@ document.addEventListener("DOMContentLoaded", function () {
             const subject = subjects[i] || "";
             return `"${subject.replace(/"/g, '""')}"`;
         });
-        csvContent += row.join(',') + '\n';
+        csvContent += row.join(';') + '\n';
     }
 
     const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
     const link = document.createElement("a");
     link.href = URL.createObjectURL(blob);
-    link.download = `grade_${currentCourse}_${exportType}.csv`;
+    link.download = `grade_engenharia_mecanica_${exportType}.csv`;
     link.click();
     URL.revokeObjectURL(link.href);
   };
+  
+  const printGrade = () => {
+    hideAllPopups();
+    if (container.classList.contains("compact")) {
+        container.classList.remove("compact");
+        updateCompactView();
+    }
+    setTimeout(() => window.print(), 300);
+  };
+  
+  // -- EVENT LISTENERS --
   
   darkModeToggle.addEventListener("click", () => {
     body.classList.toggle("dark");
@@ -203,30 +273,86 @@ document.addEventListener("DOMContentLoaded", function () {
     updateCompactView();
   });
   
-  btnBackToCourses.addEventListener('click', showCourseSelection);
-
-  courseSelector.addEventListener("click", (e) => {
-    if (e.target.matches("button[data-course]")) {
-      loadCourseData(e.target.getAttribute("data-course"));
-    }
+  // Botão Reset
+  btnReset.addEventListener("click", () => showPopup(resetPopup));
+  btnConfirmReset.addEventListener("click", () => {
+      completedCourses.clear();
+      saveState();
+      renderCurricularMatrix();
+      hideAllPopups();
+  });
+  
+  // Botão Forçar Conclusão (no popup de pré-requisitos)
+  btnForceComplete.addEventListener("click", () => {
+      if(pendingDisciplineNode) {
+          const nome = pendingDisciplineNode.dataset.nome;
+          completedCourses.add(nome);
+          pendingDisciplineNode.classList.add('completed');
+          saveState();
+          hideAllPopups();
+      }
   });
 
+  // Listener Principal da Grade
   container.addEventListener("click", (e) => {
     const block = e.target.closest(".disciplina");
     if (!block) return;
     
     // Ação: Marcar como concluído
     if (e.target.matches('.complete-button')) {
-        e.stopPropagation(); // Impede que o clique no botão ative o clique no card
+        e.stopPropagation(); 
         const disciplinaNome = block.dataset.nome;
-        block.classList.toggle("completed");
-        if (completedCourses.has(disciplinaNome)) completedCourses.delete(disciplinaNome);
-        else completedCourses.add(disciplinaNome);
+        
+        // 1. Se estiver desmarcando, é direto
+        if (completedCourses.has(disciplinaNome)) {
+            completedCourses.delete(disciplinaNome);
+            block.classList.remove('completed');
+            saveState();
+            return;
+        }
+
+        // 2. Verificação de Limite de Optativas
+        const isOptativaEspecifica = gradeData.grade_curricular["Optativas"]?.some(d => d.nome === disciplinaNome);
+        if (isOptativaEspecifica) {
+            let optativasFeitas = 0;
+            completedCourses.forEach(c => {
+                if (gradeData.grade_curricular["Optativas"]?.some(d => d.nome === c)) optativasFeitas++;
+            });
+            if (optativasFeitas >= 2) {
+                showPopup(optativePopup);
+                return;
+            }
+        }
+
+        // 3. Verificação de Pré-Requisitos
+        const preReqs = JSON.parse(block.dataset.preRequisitos);
+        const missingPreReqs = preReqs.filter(req => !completedCourses.has(req));
+
+        if (missingPreReqs.length > 0) {
+            // Mostrar Popup de Pré-requisitos
+            pendingDisciplineNode = block; // Salva quem foi clicado
+            document.getElementById('prereq-target-name').textContent = block.dataset.apelido || disciplinaNome;
+            
+            const list = document.getElementById('prereq-list');
+            list.innerHTML = "";
+            missingPreReqs.forEach(req => {
+                const li = document.createElement('li');
+                li.textContent = req;
+                list.appendChild(li);
+            });
+            
+            showPopup(prereqPopup);
+            return;
+        }
+
+        // Se passou por tudo, marca
+        completedCourses.add(disciplinaNome);
+        block.classList.add("completed");
         saveState();
         return;
     }
     
-    // Ação: Destacar pré/co-requisitos
+    // Ação: Destacar pré/co-requisitos (Clique no corpo do card)
     const disciplinaBlocks = document.querySelectorAll(".disciplina");
     disciplinaBlocks.forEach(b => b.classList.remove("selected", "pre", "core"));
     
@@ -257,6 +383,11 @@ document.addEventListener("DOMContentLoaded", function () {
   });
   
   btnExport.addEventListener("click", () => showPopup(exportPopup));
+  
+  if(btnPrintPdf) {
+      btnPrintPdf.addEventListener("click", printGrade);
+  }
+
   exportPopup.addEventListener('click', (e) => {
       if(e.target.matches('[data-export-type]')) {
           generateCsv(e.target.dataset.exportType);
@@ -267,5 +398,5 @@ document.addEventListener("DOMContentLoaded", function () {
   document.querySelectorAll('.close-popup').forEach(btn => btn.addEventListener('click', hideAllPopups));
   popupOverlay.addEventListener('click', hideAllPopups);
 
-  showCourseSelection();
+  loadCourseData();
 });
