@@ -3,48 +3,95 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Grade Curricular - UFR</title>
+    <title>Grade Curricular - Engenharia Mecânica UFR</title>
     <link rel="stylesheet" href="style.css" />
   </head>
   <body class="dark">
     <div id="top-buttons">
-      <button id="btn-back-to-courses" class="hidden">Trocar de Curso</button>
       <button id="btn-popup">Requisitos de Conclusão</button>
       <button id="btn-compact">Expandir Visualização</button>
-      <button id="btn-export">Exportar Grade</button>
+      <button id="btn-export">Exportar / Imprimir</button>
+      <button id="btn-reset">Resetar Tudo</button>
+    </div>
+
+    <!-- Barra de Legenda (Item "Concluída" removido) -->
+    <div id="legend-bar">
+      <div class="legend-item"><span class="color-box selected"></span> Selecionada</div>
+      <div class="legend-item"><span class="color-box pre"></span> Pré-requisito (Necessário)</div>
+      <div class="legend-item"><span class="color-box core"></span> Libera (Próxima)</div>
     </div>
 
     <div id="popup-overlay" class="hidden"></div>
 
+    <!-- Popup: Requisitos -->
     <div id="requirements-popup" class="popup hidden">
       <h2>Requisitos de Conclusão</h2>
       <div id="popup-content"></div>
       <button class="close-popup">Fechar</button>
     </div>
     
+    <!-- Popup: Exportação -->
     <div id="export-popup" class="popup hidden">
         <h2>Exportar Grade Curricular</h2>
-        <p>Selecione o que você deseja exportar:</p>
-        <div class="export-options">
-            <button data-export-type="pending">Matérias Pendentes</button>
-            <button data-export-type="completed">Matérias Concluídas</button>
-            <button data-export-type="all">Grade Completa</button>
+        <p>Escolha o formato desejado:</p>
+        
+        <div class="export-section">
+            <h3>🖨️ Visualização (PDF)</h3>
+            <p>Gera um arquivo PDF com o visual atual da sua grade.</p>
+            <button id="btn-print-pdf">Imprimir / Salvar como PDF</button>
         </div>
-        <button class="close-popup">Cancelar</button>
+
+        <div class="export-section">
+            <h3>📊 Dados (Excel/CSV)</h3>
+            <p>Baixa uma planilha com os dados das disciplinas.</p>
+            <div class="export-options">
+                <button data-export-type="pending">Pendentes (.csv)</button>
+                <button data-export-type="completed">Concluídas (.csv)</button>
+                <button data-export-type="all">Tudo (.csv)</button>
+            </div>
+        </div>
+        <button class="close-popup cancel-btn">Cancelar</button>
     </div>
 
-    <div id="course-selector">
-      <button data-course="engenharia-mecanica">Engenharia Mecânica</button>
-      <button data-course="curso-2">Curso 2 (Exemplo)</button>
+    <!-- Popup: Confirmação de Reset -->
+    <div id="reset-popup" class="popup hidden">
+        <h2>Resetar Progresso?</h2>
+        <p>Tem certeza que deseja apagar todo o seu progresso? Essa ação não pode ser desfeita.</p>
+        <div class="popup-actions">
+            <button id="confirm-reset" class="btn-danger">Sim, Resetar</button>
+            <button class="close-popup">Cancelar</button>
+        </div>
+    </div>
+
+    <!-- Popup: Limite de Optativas -->
+    <div id="optative-popup" class="popup hidden">
+        <h2>Limite Atingido</h2>
+        <p>Você já selecionou o limite de 2 disciplinas optativas específicas.</p>
+        <p class="small-text">Para marcar esta, desmarque outra optativa primeiro.</p>
+        <button class="close-popup">Entendido</button>
+    </div>
+
+    <!-- Popup: Alerta de Pré-requisitos -->
+    <div id="prereq-popup" class="popup hidden">
+        <h2>Pré-requisitos Pendentes</h2>
+        <p>Para cursar <strong id="prereq-target-name"></strong>, recomenda-se concluir:</p>
+        <ul id="prereq-list"></ul>
+        <div class="popup-actions">
+            <button id="btn-force-complete" class="btn-warning">Marcar mesmo assim</button>
+            <button class="close-popup">Cancelar</button>
+        </div>
     </div>
 
     <header>
-      <h1>Grade Curricular - UFR</h1>
+      <h1>
+        <img src="https://cdn.glitch.global/ab1e181f-e611-442d-9125-65bc043647cf/club-penguin.gif?v=1743474666434" alt="Pinguim" class="header-gif">
+        Grade Curricular - Engenharia Mecânica
+      </h1>
       <button id="dark-mode-toggle">Modo Claro</button>
     </header>
 
     <main>
-      <div id="curricular-container" class="hidden"></div>
+      <div id="curricular-container"></div>
     </main>
     
     <script src="script.js"></script>
