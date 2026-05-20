@@ -38,7 +38,3 @@ Este projeto foi construído utilizando tecnologias web puras (Vanilla), sem dep
 * `style.css`: Folha de estilos contendo o design da aplicação, transições e regras específicas para impressão (`@media print`).
 * `script.js`: O motor da aplicação. Gerencia eventos de clique, renderização da matriz baseada no JSON e lógicas de validação acadêmica.
 * `dataEM.json`: Banco de dados estático que armazena todas as informações das disciplinas organizadas do 1º ao 10º período, além da lista de optativas e requisitos de conclusão.
-
-1. Clone o repositório:
-   ```bash
-   git clone [https://github.com/SHAIDERWOW/matrizcurricular.git](https://github.com/SHAIDERWOW/matrizcurricular.git)
